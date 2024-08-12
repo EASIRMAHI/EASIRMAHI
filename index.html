@@ -4,104 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ANCHESTOR Image Gen</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f4f4f4;
-        }
-
-        header {
-            font-size: 2em;
-            margin-bottom: 20px;
-            color: #333;
-        }
-
-        #prompt-box {
-            margin-bottom: 10px;
-            width: 300px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 1em;
-        }
-
-        #generate-button {
-            padding: 10px 20px;
-            font-size: 1em;
-            background-color: #28a745;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-bottom: 20px;
-        }
-
-        #generate-button:hover {
-            background-color: #218838;
-        }
-
-        #image-box {
-            width: 300px;
-            height: 300px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            background-color: #fff;
-            font-size: 1.2em;
-            color: #666;
-        }
-
-        #credit {
-            margin-top: 30px;
-            font-size: 0.8em;
-            color: #333;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-    <header>ANCHESTOR Image Gen</header>
-    
-    <input type="text" id="prompt-box" placeholder="Enter your prompt here..." />
-    
-    <button id="generate-button">Generate</button>
-    
-    <div id="image-box">No image yet</div>
-    
-    <div id="credit">Made by Mahi--</div>
-    
-    <script>
-        document.getElementById("generate-button").addEventListener("click", function() {
-            const prompt = document.getElementById("prompt-box").value;
-            const imageBox = document.getElementById("image-box");
-            
-            if(prompt.trim() === "") {
-                alert("Please enter a prompt!");
-                return;
-            }
-
-            imageBox.innerHTML = "Loading...";
-
-            fetch(`https://www.samirxpikachu.run.place/mageDef?prompt=${encodeURIComponent(prompt)}`)
-                .then(response => response.blob())
-                .then(blob => {
-                    const url = URL.createObjectURL(blob);
-                    imageBox.innerHTML = `<img src="${url}" alt="Generated Image" style="max-width: 100%; max-height: 100%;" />`;
-                })
-                .catch(err => {
-                    imageBox.innerHTML = "Error generating image!";
-                    console.error(err);
-                });
-        });
-    </script>
-
+    <div class="background-video">
+        <video autoplay muted loop id="bgVideo">
+            <source src="https://i.imgur.com/1pYt532.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    <header>
+        <div class="headline">
+            <div class="headline-text">ANCHESTOR</div>
+            <div class="subtext">Image Generator</div>
+        </div>
+    </header>
+    <div class="container">
+        <input type="text" id="prompt" placeholder="Enter your prompt here">
+        <button class="glow-on-hover" onclick="generateImage()">Generate</button>
+        <div class="loading" id="loading">Loading...</div>
+        <div class="image-container">
+            <img id="generatedImage" src="" alt="" style="display:none;">
+        </div>
+    </div>
+    <div class="footer">
+        Made by Mahi--
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
